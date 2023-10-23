@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(Chess)
 
+# required environment variable "SDL2DIR" set to local SDL2- and SDL2_image-folder
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/sdl2")
 
 find_package(SDL2 REQUIRED)

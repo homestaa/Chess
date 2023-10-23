@@ -13,7 +13,8 @@ set(CHESS_SOURCES
 )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/SDL2_image.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # Build executable
 add_executable(Chess Main.cpp ${CHESS_SOURCES})
-target_link_libraries(Chess ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
+target_link_libraries(Chess ${SDL2_LIBDIR}/libSDL2main.a ${SDL2_LIBDIR}/libSDL2.dll.a ${SDL2_IMAGE_LIBRARIES})
