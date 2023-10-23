@@ -22,7 +22,7 @@ void MainLoop::run()
 
 	while (quit == false)
 	{
-		while (SDL_PollEvent(&handler->m_event))
+		while (SDL_WaitEvent(&handler->m_event))
 		{
 			if (handler->m_event.type == SDL_QUIT)
 			{
