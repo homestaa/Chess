@@ -10,8 +10,10 @@ class SDL_Handler
 public:
 
 	// Screen size
-	const int SCREEN_WIDTH = 640;
-	const int SCREEN_HEIGHT = 640;
+	const int SCREEN_WIDTH = 800;
+	const int SCREEN_HEIGHT = 800;
+	const int FIELD_WIDTH = SCREEN_WIDTH / 8;
+	const int FIELD_HEIGHT = SCREEN_HEIGHT / 8;
 
 	// window we'll be rendering to
 	SDL_Window* m_window;

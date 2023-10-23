@@ -12,7 +12,6 @@ void MainLoop::run()
 	handler->renderBackground();
 
 	Game* game = new Game(handler);
-	bool quit = false;
 
 	int xStart = -1;
 	int yStart = -1;
@@ -20,19 +19,19 @@ void MainLoop::run()
 	int yEnd = -1;
 	Piece* clickedOn = nullptr;
 
-	while (quit == false)
+	while (true)
 	{
-		while (SDL_WaitEvent(&handler->m_event))
+		if (SDL_WaitEvent(&handler->m_event))
 		{
 			if (handler->m_event.type == SDL_QUIT)
 			{
-				quit = true;
+				break;
 			}
 
 			if (handler->m_event.type == SDL_MOUSEBUTTONDOWN)
 			{
-				xStart = handler->m_event.button.x / 80;
-				yStart = handler->m_event.button.y / 80;
+				xStart = handler->m_event.button.x / handler->FIELD_WIDTH;
+				yStart = handler->m_event.button.y / handler->FIELD_HEIGHT;
 				clickedOn = game->getFieldPos(xStart, yStart);
 				if (clickedOn != nullptr)
 				{
@@ -52,8 +51,8 @@ void MainLoop::run()
 						game->undoRenderPossibleMoves(clickedOn);
 					}
 				}
-				xEnd = handler->m_event.button.x / 80;
-				yEnd = handler->m_event.button.y / 80;
+				xEnd = handler->m_event.button.x / handler->FIELD_WIDTH;
+				yEnd = handler->m_event.button.y / handler->FIELD_HEIGHT;
 				if (clickedOn != nullptr)
 				{
 					if ((xStart != -1 && yStart != -1 && xEnd != -1 && yEnd != -1)

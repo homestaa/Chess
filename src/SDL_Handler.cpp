@@ -22,8 +22,6 @@ SDL_Texture* SDL_Handler::loadImage(std::string filename)
 void SDL_Handler::renderBackground()
 {
 	bool white = true;
-	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
-
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
@@ -37,10 +35,10 @@ void SDL_Handler::renderBackground()
 				SDL_SetRenderDrawColor(m_renderer, 155, 103, 60, 255);
 			}
 			white = !white;
-			SDL_Rect rectangle = { i * SCREEN_WIDTH / 8,
-								  j * SCREEN_HEIGHT / 8,
-								  SCREEN_WIDTH / 8,
-								  SCREEN_HEIGHT / 8 };
+			SDL_Rect rectangle = { i * FIELD_WIDTH,
+								  j * FIELD_HEIGHT,
+								  FIELD_WIDTH,
+								  FIELD_HEIGHT };
 			SDL_RenderFillRect(m_renderer, &rectangle);
 		}
 		white = !white;
@@ -57,10 +55,10 @@ void SDL_Handler::undoPieceRender(int x, int y)
 	{
 		SDL_SetRenderDrawColor(m_renderer, 155, 103, 60, 255);
 	}
-	SDL_Rect rectangle = { x * SCREEN_WIDTH / 8,
-						  y * SCREEN_HEIGHT / 8,
-						  SCREEN_WIDTH / 8,
-						  SCREEN_HEIGHT / 8 };
+	SDL_Rect rectangle = { x * FIELD_WIDTH,
+						  y * FIELD_HEIGHT,
+						  FIELD_WIDTH,
+						  FIELD_HEIGHT };
 	SDL_RenderFillRect(m_renderer, &rectangle);
 }
 
