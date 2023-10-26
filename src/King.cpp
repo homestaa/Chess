@@ -36,7 +36,6 @@ void King::sayMyName()
 void King::calcPossibleMoves(Piece* field[8][8], bool checkCheck)
 {
 	std::vector<std::tuple <int, int, Piece::MoveType>> moves;
-	bool castles = true;
 	bool enemyPlace = false;
 
 	for (int dx = -1; dx <= 1; dx++)
@@ -74,7 +73,6 @@ void King::calcPossibleMoves(Piece* field[8][8], bool checkCheck)
 		{
 			for (int j = 0; j <= 7; j += 7)
 			{
-				castles = true;
 				if (field[i][j] != nullptr)
 				{
 					if (field[i][j]->getTeam() == m_team && field[i][j]->getType() == ROOK && !field[i][j]->m_hasMoved)
@@ -84,54 +82,17 @@ void King::calcPossibleMoves(Piece* field[8][8], bool checkCheck)
 						{
 							a = 1;
 							b = 2;
-							c = 3;
+							c = 2;
 						}
 						else
 						{
-							a = 5;
-							b = 6;
+							a = 4;
+							b = 5;
 							c = 6;
 						}
 						if (field[a][j] == nullptr && field[b][j] == nullptr && field[c][j] == nullptr)
 						{
-							for (int k = 0; k < 8; k++)
-							{
-								for (int l = 0; l < 8; l++)
-								{
-									if (field[k][l] != nullptr)
-									{
-										if (field[k][l]->getTeam() != m_team)
-										{
-											std::vector<std::tuple<int, int, Piece::MoveType>> notPossible = field[k][l]->getPossibleMoves();
-											for (const auto& value : notPossible)
-											{
-												if (i == 0)
-												{
-													if ((std::get<0>(value) == 4 && std::get<1>(value) == j)
-														|| (std::get<0>(value) == 2 && std::get<1>(value) == j)
-														|| (std::get<0>(value) == 3 && std::get<1>(value) == j))
-													{
-														castles = false;
-													}
-												}
-												else
-												{
-													if ((std::get<0>(value) == 5 && std::get<1>(value) == j)
-														|| (std::get<0>(value) == 6 && std::get<1>(value) == j)
-														|| (std::get<0>(value) == 4 && std::get<1>(value) == j))
-													{
-														castles = false;
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-							if (castles)
-							{
-								moves.push_back(std::tuple<int, int, Piece::MoveType>(i, j, Piece::CASTLE));
-							}
+							moves.push_back(std::tuple<int, int, Piece::MoveType>(i, j, Piece::CASTLE));
 						}
 					}
 				}

@@ -315,32 +315,32 @@ void Game::castles(int xStart, int yStart, int xEnd, int yEnd)
 {
     if (xEnd == 0)
     {
-        m_field[2][yEnd] = m_field[4][yEnd];
-        m_field[3][yEnd] = m_field[0][yEnd];
+        m_field[2][yEnd] = m_field[0][yEnd]; // rook move
+        m_field[1][yEnd] = m_field[3][yEnd]; // king move
         m_field[2][yEnd]->m_hasMoved = true;
-        m_field[3][yEnd]->m_hasMoved = true;
+        m_field[1][yEnd]->m_hasMoved = true;
         m_field[2][yEnd]->setPosition(std::pair<int, int>(2, yEnd));
-        m_field[3][yEnd]->setPosition(std::pair<int, int>(3, yEnd));
-        m_field[4][yEnd] = nullptr;
+        m_field[1][yEnd]->setPosition(std::pair<int, int>(1, yEnd));
+        m_field[3][yEnd] = nullptr;
         m_field[0][yEnd] = nullptr;
-        m_handler->undoPieceRender(4, yEnd);
+        m_handler->undoPieceRender(3, yEnd);
         m_handler->undoPieceRender(0, yEnd);
         m_field[2][yEnd]->render();
-        m_field[3][yEnd]->render();
+        m_field[1][yEnd]->render();
     }
     else
     {
-        m_field[6][yEnd] = m_field[4][yEnd];
-        m_field[5][yEnd] = m_field[7][yEnd];
-        m_field[6][yEnd]->m_hasMoved = true;
+        m_field[4][yEnd] = m_field[7][yEnd]; // rook move
+        m_field[5][yEnd] = m_field[3][yEnd]; // king move
+        m_field[4][yEnd]->m_hasMoved = true;
         m_field[5][yEnd]->m_hasMoved = true;
-        m_field[6][yEnd]->setPosition(std::pair<int, int>(6, yEnd));
+        m_field[4][yEnd]->setPosition(std::pair<int, int>(4, yEnd));
         m_field[5][yEnd]->setPosition(std::pair<int, int>(5, yEnd));
-        m_field[4][yEnd] = nullptr;
+        m_field[3][yEnd] = nullptr;
         m_field[7][yEnd] = nullptr;
-        m_handler->undoPieceRender(4, yEnd);
+        m_handler->undoPieceRender(3, yEnd);
         m_handler->undoPieceRender(7, yEnd);
-        m_field[6][yEnd]->render();
+        m_field[4][yEnd]->render();
         m_field[5][yEnd]->render();
     }
 }
