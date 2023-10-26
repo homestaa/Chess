@@ -92,7 +92,44 @@ void King::calcPossibleMoves(Piece* field[8][8], bool checkCheck)
 						}
 						if (field[a][j] == nullptr && field[b][j] == nullptr && field[c][j] == nullptr)
 						{
-							moves.push_back(std::tuple<int, int, Piece::MoveType>(i, j, Piece::CASTLE));
+							bool castle = true;
+							for (int k = 0; (k < 8) && castle; k++)
+							{
+								for (int l = 0; (l < 8) && castle; l++)
+								{
+									if (field[k][l] != nullptr)
+									{
+										if (field[k][l]->getTeam() != m_team)
+										{
+											std::vector<std::tuple<int, int, Piece::MoveType>> notPossible = field[k][l]->getPossibleMoves();
+											for (const auto& value : notPossible)
+											{
+												if (i == 0)
+												{
+													if ((std::get<0>(value) == 1 && std::get<1>(value) == j)
+														|| (std::get<0>(value) == 2 && std::get<1>(value) == j)
+														|| (std::get<0>(value) == 3 && std::get<1>(value) == j))
+													{
+														castle = false;
+														break;
+													}
+												}
+												else
+												{
+													if ((std::get<0>(value) == 3 && std::get<1>(value) == j)
+														|| (std::get<0>(value) == 4 && std::get<1>(value) == j)
+														|| (std::get<0>(value) == 5 && std::get<1>(value) == j))
+													{
+														castle = false;
+														break;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+							if(castle) moves.push_back(std::tuple<int, int, Piece::MoveType>(i, j, Piece::CASTLE));
 						}
 					}
 				}
