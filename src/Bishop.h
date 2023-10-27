@@ -9,9 +9,9 @@ public:
     Bishop(Team team, std::pair<int, int> pos, SDL_Handler* handler);
 
     // used to debug some stuff
-    void sayMyName();
+    void sayMyName() override;
 
     // calculates the possible moves, 
-    void calcPossibleMoves(Piece* field[8][8], bool checkCheck);
+    void calcPossibleMoves(Piece* field[8][8], bool checkCheck) override;
 };
 

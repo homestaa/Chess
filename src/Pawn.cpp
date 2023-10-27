@@ -150,8 +150,14 @@ void Pawn::calcPossibleMoves(Piece* field[8][8], bool checkCheck)
 	m_possibleMoves = moves;
 }
 
+std::pair<bool, int> Pawn::getEnPassant() 
+{ 
+	return m_enPassant; 
+}
 
-
-
+void Pawn::setEnPassant(std::pair<bool, int> modifi) 
+{ 
+	m_enPassant = modifi; 
+}
 
 
