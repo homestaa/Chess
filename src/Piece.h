@@ -6,29 +6,24 @@
 #include <SDL.h>
 #include <tuple>
 
-class King;
-
 class Piece
 {
 public:
-
 	enum Team { BLACK, WHITE, NONE };
-
 	enum PieceType { PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN, EMPTY };
-
 	enum MoveType { NORMAL, CASTLE, ENPASSANT, NEWPIECE, INIT };
 
 	// returns list of possible Moves
-	std::vector<std::tuple <int, int, Piece::MoveType>> getPossibleMoves() { return m_possibleMoves; };
+	std::vector<std::tuple <int, int, Piece::MoveType>> getPossibleMoves();
 
 	// return whether BLACK or WHITE
-	Team getTeam() { return m_team; };
+	Team getTeam();
 
 	// sets new position
-	void setPosition(std::pair<int, int> newPos) { m_pos = newPos; };
+	void setPosition(std::pair<int, int> newPos);
 
 	// return position of piece
-	std::pair<int, int> getPos() { return m_pos; };
+	std::pair<int, int> getPos();
 
 	// Constructor
 	Piece(Team team, std::pair<int,int> pos, SDL_Handler* handler, PieceType type);
@@ -37,7 +32,7 @@ public:
 	Piece(const Piece& piece);
 
 	// Destructor
-	~Piece();
+	virtual ~Piece();
 
 	//render this piece
 	void render();
@@ -53,6 +48,9 @@ public:
 
 	// returns type of piece
 	PieceType getType() { return m_type; };
+
+	virtual void setCheck(Piece* field[8][8], int x, int y);
+	virtual bool getCheck();
 
 protected:
 
@@ -82,11 +80,11 @@ protected:
 	// because otherwise it will produce stack overflow (pushMove calls setCheck, setCheck calls pushMove and so on)
 	std::vector<std::tuple <int, int, Piece::MoveType>> pushMove(std::vector<std::tuple <int, int, Piece::MoveType>> moveList,
 																 std::tuple <int, int, Piece::MoveType> move,
-																 King* king,
+																 Piece* king,
 																 Piece* field[8][8],
 																 bool checkCheck);
 
 	// returns king of own team from field
-	King* getOwnKing(Piece* field[8][8]);
+	Piece* getOwnKing(Piece* field[8][8]);
 };
 

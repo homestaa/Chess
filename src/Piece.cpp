@@ -3,9 +3,32 @@
 #include <string>
 #include <iostream>
 
+std::vector<std::tuple <int, int, Piece::MoveType>> Piece::getPossibleMoves()
+{ 
+	return m_possibleMoves; 
+}
+
+Piece::Team Piece::getTeam()
+{
+	return m_team;
+}
+
+void Piece::setPosition(std::pair<int, int> newPos) 
+{ 
+	m_pos = newPos; 
+}
+
+std::pair<int, int> Piece::getPos() 
+{ 
+	return m_pos; 
+}
+
+void Piece::setCheck(Piece* field[8][8], int x, int y) {}
+bool Piece::getCheck() { return 0; }
+
 std::vector<std::tuple<int, int, Piece::MoveType>> Piece::pushMove(std::vector<std::tuple<int, int, Piece::MoveType>> moveList,
 																   std::tuple<int, int, Piece::MoveType> move,
-																   King* king,
+																   Piece* king,
 																   Piece* field[8][8],
 																   bool checkCheck)
 {
@@ -50,7 +73,7 @@ std::vector<std::tuple<int, int, Piece::MoveType>> Piece::pushMove(std::vector<s
 	return moveList;
 }
 
-King* Piece::getOwnKing(Piece* field[8][8])
+Piece* Piece::getOwnKing(Piece* field[8][8])
 {
 	for  (int i = 0; i < 8; i++)
 	{
@@ -60,8 +83,7 @@ King* Piece::getOwnKing(Piece* field[8][8])
 			{
 				if (field[i][j]->getTeam() == m_team && field[i][j]->getType() == Piece::KING)
 				{
-					King* ret = static_cast<King*>(field[i][j]);
-					return ret;
+					return field[i][j];
 				}
 			}
 		}

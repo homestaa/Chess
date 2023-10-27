@@ -157,3 +157,8 @@ void King::setCheck(Piece* field[8][8], int x, int y)
 	
 	m_check = check;
 }
+
+bool King::getCheck()
+{ 
+	return m_check; 
+}
