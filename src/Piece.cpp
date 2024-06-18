@@ -23,8 +23,17 @@ std::pair<int, int> Piece::getPos()
 	return m_pos; 
 }
 
-void Piece::setCheck(Piece* field[8][8], int x, int y) {}
-bool Piece::getCheck() { return 0; }
+void Piece::setCheck(Piece* field[8][8], int x, int y)
+{
+	(void)field;
+	(void)x;
+	(void)y;
+	}
+
+bool Piece::getCheck()
+{
+	return 0;
+}
 
 std::vector<std::tuple<int, int, Piece::MoveType>> Piece::pushMove(std::vector<std::tuple<int, int, Piece::MoveType>> moveList,
 																   std::tuple<int, int, Piece::MoveType> move,
@@ -92,12 +101,12 @@ Piece* Piece::getOwnKing(Piece* field[8][8])
 }
 
 Piece::Piece(Team team, std::pair<int, int> pos, SDL_Handler* handler, PieceType type)
-	:m_team(team), m_pos(pos), m_handler(handler), m_texture(NULL), m_hasMoved(false), m_type(type)
+	:m_hasMoved(false), m_texture(NULL), m_handler(handler), m_team(team), m_type(type), m_pos(pos)
 {
 }
 
 Piece::Piece(const Piece& piece)
-	:m_team(piece.m_team), m_pos(piece.m_pos), m_handler(piece.m_handler), m_texture(NULL), m_hasMoved(false), m_type(piece.m_type)
+	:m_hasMoved(false), m_texture(NULL), m_handler(piece.m_handler), m_team(piece.m_team), m_type(piece.m_type), m_pos(piece.m_pos)
 {
 }
 

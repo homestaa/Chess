@@ -2,7 +2,10 @@
 #include <iostream>
 
 Game::Game(SDL_Handler* handler)
-       :pl1(new Pawn(Piece::WHITE, std::pair<int, int>(0, 1), handler)),
+       :m_turn(Piece::WHITE),
+        m_handler(handler),
+        m_checkEnPassant(true),
+        pl1(new Pawn(Piece::WHITE, std::pair<int, int>(0, 1), handler)),
         pl2(new Pawn(Piece::WHITE, std::pair<int, int>(1, 1), handler)),
         pl3(new Pawn(Piece::WHITE, std::pair<int, int>(2, 1), handler)),
         pl4(new Pawn(Piece::WHITE, std::pair<int, int>(3, 1), handler)),
@@ -33,10 +36,7 @@ Game::Game(SDL_Handler* handler)
         kb1(new King(Piece::BLACK, std::pair<int, int>(3, 7), handler)),
         kl1(new King(Piece::WHITE, std::pair<int, int>(3, 0), handler)),
         qb1(new Queen(Piece::BLACK, std::pair<int, int>(4, 7), handler)),
-        ql1(new Queen(Piece::WHITE, std::pair<int, int>(4, 0), handler)),
-        m_turn(Piece::WHITE),
-        m_handler(handler),
-        m_checkEnPassant(true)
+        ql1(new Queen(Piece::WHITE, std::pair<int, int>(4, 0), handler))
 {
     m_field[0][7] = rb1;
     m_field[7][7] = rb2;
@@ -117,7 +117,7 @@ void Game::move(Piece* start, std::tuple<int, int, Piece::MoveType> move)
             normal(start->getPos().first, start->getPos().second, std::get<0>(move), std::get<1>(move));
             break;
         case Piece::CASTLE:
-            castles(start->getPos().first, start->getPos().second, std::get<0>(move), std::get<1>(move));
+            castles(std::get<0>(move), std::get<1>(move));
             break;
         case Piece::ENPASSANT:
             enPassant(start->getPos().first, start->getPos().second, std::get<0>(move), std::get<1>(move));
@@ -311,7 +311,7 @@ void Game::exchange(int xStart, int yStart, int xEnd, int yEnd)
 }
 
 
-void Game::castles(int xStart, int yStart, int xEnd, int yEnd)
+void Game::castles(int xEnd, int yEnd)
 {
     if (xEnd == 0)
     {

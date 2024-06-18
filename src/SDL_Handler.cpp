@@ -98,8 +98,6 @@ bool SDL_Handler::init()
 	m_window = NULL;
 	m_screenSurface = NULL;
 
-	bool quit = false;
-
 	//Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{

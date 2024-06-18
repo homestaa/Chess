@@ -56,7 +56,7 @@ private:
     void exchange(int xStart, int yStart, int xEnd, int yEnd);
 
     // castles move
-    void castles(int xStart, int yStart, int xEnd, int yEnd);
+    void castles(int xEnd, int yEnd);
 
     // Background filename
     std::string m_backgroundFilename;

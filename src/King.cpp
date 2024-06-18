@@ -36,7 +36,6 @@ void King::sayMyName()
 void King::calcPossibleMoves(Piece* field[8][8], bool checkCheck)
 {
 	std::vector<std::tuple <int, int, Piece::MoveType>> moves;
-	bool enemyPlace = false;
 
 	for (int dx = -1; dx <= 1; dx++)
 	{
